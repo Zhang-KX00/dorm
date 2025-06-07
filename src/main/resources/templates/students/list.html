@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 th:text="${title != null ? title : '学生列表'}">学生列表</h2>
+        <a href="/students/new" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> 添加学生
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>姓名</th>
+                        <th>学号</th>
+                        <th>性别</th>
+                        <th>宿舍</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.id}">1</td>
+                        <td th:text="${student.name}">张三</td>
+                        <td th:text="${student.studentNumber}">20230001</td>
+                        <td th:text="${student.gender}">男</td>
+                        <td th:text="${student.dorm != null ? student.dorm.buildingName + '-' + student.dorm.roomNumber : '未分配'}">A-101</td>
+                        <td>
+                            <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-sm btn-outline-primary me-1">
+                                <i class="bi bi-pencil"></i> 编辑
+                            </a>
+                            <a th:href="@{/students/delete/{id}(id=${student.id})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('确定要删除此学生吗？')">
+                                <i class="bi bi-trash"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="content">
+    <h2 class="mb-4" th:text="${admin.id != null ? '编辑管理员' : '添加管理员'}">添加管理员</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <form th:action="${admin.id != null} ? @{/admin/update/{id}(id=${admin.id})} : @{/admin/save}"
+                  method="post" th:object="${admin}">
+                <div class="mb-3">
+                    <label for="username" class="form-label">用户名</label>
+                    <input type="text" class="form-control" id="username" th:field="*{username}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">姓名</label>
+                    <input type="text" class="form-control" id="name" th:field="*{name}" required>
+                </div>
+                <div th:if="${admin.id == null}" class="mb-3">
+                    <label for="password" class="form-label">密码</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="/admin" class="btn btn-secondary me-md-2">取消</a>
+                    <button type="submit" class="btn btn-primary">保存</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

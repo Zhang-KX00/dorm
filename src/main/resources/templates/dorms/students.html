@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 th:text="${title != null ? title : '宿舍学生'}">宿舍学生</h2>
+        <a th:href="@{/dorms}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> 返回宿舍列表
+        </a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">宿舍信息</h5>
+            <div class="row">
+                <div class="col-md-3">
+                    <p><strong>楼号:</strong> <span th:text="${dorm.buildingName}">A栋</span></p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>房间号:</strong> <span th:text="${dorm.roomNumber}">101</span></p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>床位总数:</strong> <span th:text="${dorm.bedCount}">4</span></p>
+                </div>
+                <div class="col-md-3">
+                    <p><strong>已住人数:</strong> <span th:text="${students != null ? students.size() : 0}">2</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">学生列表</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>姓名</th>
+                        <th>学号</th>
+                        <th>性别</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="student : ${students}">
+                        <td th:text="${student.id}">1</td>
+                        <td th:text="${student.name}">张三</td>
+                        <td th:text="${student.studentNumber}">20230001</td>
+                        <td th:text="${student.gender}">男</td>
+                        <td>
+                            <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-sm btn-outline-primary me-1">
+                                <i class="bi bi-pencil"></i> 编辑
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

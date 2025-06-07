@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title} ?: '宿舍管理系统'">宿舍管理系统</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link th:href="@{/webjars/bootstrap-icons/1.11.1/font/bootstrap-icons.css}" rel="stylesheet">
+    <!-- 自定义CSS -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+<body>
+<!-- 导航栏 -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/dashboard}">宿舍管理系统</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activePage == 'dashboard'} ? 'active'"
+                       th:href="@{/dashboard}">仪表盘</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activePage == 'student'} ? 'active'"
+                       th:href="@{/students}">学生管理</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activePage == 'dorm'} ? 'active'"
+                       th:href="@{/dorms}">宿舍管理</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activePage == 'admin'} ? 'active'"
+                       th:href="@{/admin}">管理员</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" th:classappend="${activePage == 'visitor'} ? 'active'"
+                       th:href="@{/visitor}">访客管理</a>
+                </li>
+            </ul>
+            <div class="d-flex">
+                <span class="navbar-text me-3" th:text="'欢迎，' + ${#authentication.name}"></span>
+                <a th:href="@{/logout}" class="btn btn-outline-light">退出</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- 主要内容区 -->
+<div class="container-fluid mt-4">
+    <div class="row">
+        <!-- 侧边栏 -->
+        <div class="col-md-2 d-none d-md-block">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">导航菜单</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <a th:href="@{/dashboard}" class="list-group-item list-group-item-action"
+                       th:classappend="${activePage == 'dashboard'} ? 'active'">
+                        <i class="bi bi-speedometer2 me-2"></i>仪表盘
+                    </a>
+
+                    <a th:href="@{/students}" class="list-group-item list-group-item-action"
+                       th:classappend="${activePage == 'student'} ? 'active'">
+                        <i class="bi bi-people me-2"></i>学生管理
+                    </a>
+
+                    <a th:href="@{/dorms}" class="list-group-item list-group-item-action"
+                       th:classappend="${activePage == 'dorm'} ? 'active'">
+                        <i class="bi bi-building me-2"></i>宿舍管理
+                    </a>
+
+                    <a th:href="@{/admin}" class="list-group-item list-group-item-action"
+                       th:classappend="${activePage == 'admin'} ? 'active'">
+                        <i class="bi bi-person-gear me-2"></i>管理员
+                    </a>
+
+                    <a th:href="@{/visitor}" class="list-group-item list-group-item-action"
+                       th:classappend="${activePage == 'visitor'} ? 'active'">
+                        <i class="bi bi-person-gear me-2"></i>访客管理
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 主内容区 -->
+        <div class="col-md-10">
+            <div th:replace="${content}"></div>
+        </div>
+    </div>
+</div>
+
+<!-- 页脚 -->
+<footer class="mt-5 py-3 bg-light">
+    <div class="container-fluid">
+        <p class="text-muted text-center mb-0">© 2025 宿舍管理系统 - 版权所有</p>
+    </div>
+</footer>
+
+<!-- JavaScript 文件 -->
+<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

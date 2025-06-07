@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 宿舍管理系统</title>
+    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap CSS -->
+    <link th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/webjars/bootstrap-icons/1.11.1/font/bootstrap-icons.css}" rel="stylesheet">
+    <!-- 自定义CSS -->
+    <link href="/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+        .login-container {
+            max-width: 500px;
+            width: 100%;
+            margin: auto;
+        }
+        .login-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .card-body {
+            padding: 2.5rem;
+        }
+        .form-control:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+        }
+        .btn-primary {
+            background-color: #0d6efd;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+        }
+        .login-header {
+            margin-bottom: 2rem;
+        }
+        .login-header i {
+            font-size: 2.5rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="login-container">
+        <div class="card login-card">
+            <div class="card-body">
+                <div class="login-header text-center">
+                    <i class="bi bi-house-door-fill"></i>
+                    <h3 class="mb-2">宿舍管理系统</h3>
+                    <p class="text-muted">请输入您的凭证登录</p>
+                </div>
+
+                <form th:action="@{/auth/login}" method="post">
+                    <div th:if="${param.error}" class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                        <div>用户名或密码错误</div>
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success d-flex align-items-center" role="alert">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <div>您已成功注销</div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="username" name="username"
+                               placeholder="用户名" required autofocus>
+                        <label for="username">用户名</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input type="password" class="form-control" id="password" name="password"
+                               placeholder="密码" required>
+                        <label for="password">密码</label>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="remember-me" id="remember-me">
+                            <label class="form-check-label" for="remember-me">记住我</label>
+                        </div>
+                        <a href="#" class="text-decoration-none">忘记密码?</a>
+                    </div>
+                    <button class="w-100 btn btn-primary btn-lg mb-3" type="submit">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> 登录
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <p class="text-muted mb-0">还没有账号?
+                        <a th:href="@{/auth/register}" class="text-decoration-none fw-semibold">立即注册</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap 5 JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

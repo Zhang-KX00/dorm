@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="content">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 th:text="${visitor.id == null} ? '添加访客' : '编辑访客'"></h2>
+    <a href="/visitor" class="btn btn-primary">
+      <i class="bi bi-arrow-left"></i> 返回列表
+    </a>
+  </div>
+<div class="wrapper">
+<!--  <div th:replace="~{fragments/sidebar :: sidebar}"></div>-->
+
+  <div class="main">
+<!--    <nav th:replace="~{fragments/topbar :: topbar}"></nav>-->
+
+
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <form th:action="${visitor.id == null} ? @{/visitor/save} : @{/visitor/update/{id}(id=${visitor.id})}"
+                th:object="${visitor}" method="post">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">访客姓名</label>
+                <input type="text" class="form-control" th:field="*{name}" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">联系电话</label>
+                <input type="tel" class="form-control" th:field="*{phone}" required>
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label class="form-label">访问学生</label>
+                <select class="form-select" th:field="*{studentId}" required>
+                  <option value="">-- 选择学生 --</option>
+                  <option th:each="student : ${students}"
+                          th:value="${student.id}"
+                          th:text="${student.name + ' (' + student.studentNumber + ')'}"
+                          th:selected="${visitor.studentId == student.id}"></option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">访问时间</label>
+                <input type="datetime-local" class="form-control" th:field="*{visitTime}" required>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">访问原因</label>
+              <textarea class="form-control" th:field="*{reason}" rows="3" required></textarea>
+            </div>
+
+            <div th:if="${visitor.id != null}" class="mb-3">
+              <label class="form-label">状态</label>
+              <select class="form-select" th:field="*{status}">
+                <option th:each="status : ${T(org.xsy.dorm.model.visitor.Status).values()}"
+                        th:value="${status}"
+                        th:text="${status}"></option>
+              </select>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button type="submit" class="btn btn-primary">
+                <i class="bi bi-save"></i> 保存
+              </button>
+              <a th:href="@{/visitor}" class="btn btn-secondary">
+                <i class="bi bi-x-circle"></i> 取消
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sidebar.js"></script>
+</body>
+</html>

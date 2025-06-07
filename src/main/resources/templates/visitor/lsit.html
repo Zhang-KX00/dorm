@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>访客管理</title>
+<!--  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">-->
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">-->
+<!--  <link rel="stylesheet" href="/css/style.css">-->
+</head>
+<body>
+<div th:fragment="content">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 th:text="${title != null ? title : '访客列表'}">访客列表</h2>
+    <a href="/visitor/add" class="btn btn-primary">
+      <i class="bi bi-plus-lg"></i> 添加访客
+    </a>
+  </div>
+<div class="wrapper">
+<!--  <div th:replace="~{fragments/sidebar :: sidebar}"></div>-->
+
+  <div class="main">
+<!--    <nav th:replace="~{fragments/topbar :: topbar}"></nav>-->
+
+<!--    <div class="container-fluid">-->
+<!--      <div class="d-sm-flex align-items-center justify-content-between mb-4">-->
+<!--        <h1 class="h3 mb-0 text-gray-800">访客管理</h1>-->
+<!--        <a th:href="@{/visitor/add}" class="btn btn-primary">-->
+<!--          <i class="bi bi-plus-lg"></i> 添加访客-->
+<!--        </a>-->
+<!--      </div>-->
+
+      <div class="card shadow mb-4">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>访客姓名</th>
+                <th>联系电话</th>
+                <th>访问学生</th>
+                <th>访问原因</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="visitor : ${visitors}">
+                <td th:text="${visitor.id}"></td>
+                <td th:text="${visitor.name}"></td>
+                <td th:text="${visitor.phone}"></td>
+                <td th:text="${visitor.studentName}"></td>
+                <td th:text="${visitor.reason}"></td>
+                <td>
+                                        <span th:class="${visitor.status == '已审批'} ? 'badge bg-success' : 'badge bg-warning'"
+                                              th:text="${visitor.status}"></span>
+                </td>
+                <td>
+                  <a th:href="@{/visitor/edit/{id}(id=${visitor.id})}"
+                     class="btn btn-sm btn-outline-primary me-1">
+                    <i class="bi bi-pencil"></i> 编辑
+                  </a>
+                  <a th:href="@{/visitor/approve/{id}(id=${visitor.id})}"
+                     th:if="${visitor.status == '待审批'}"
+                     class="btn btn-sm btn-outline-success me-1">
+                    <i class="bi bi-check-circle"></i> 审批
+                  </a>
+                  <a th:href="@{/visitor/delete/{id}(id=${visitor.id})}"
+                     class="btn btn-sm btn-outline-danger"
+                     onclick="return confirm('确定要删除此访客记录吗？')">
+                    <i class="bi bi-trash"></i> 删除
+                  </a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/js/sidebar.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 th:text="${title != null ? title : '宿舍列表'}">宿舍列表</h2>
+        <a href="/dorms/new" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> 添加宿舍
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>楼号</th>
+                        <th>房间号</th>
+                        <th>床位数量</th>
+                        <th>已住人数</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="dorm : ${dorms}">
+                        <td th:text="${dorm.id}">1</td>
+                        <td th:text="${dorm.buildingName}">A栋</td>
+                        <td th:text="${dorm.roomNumber}">101</td>
+                        <td th:text="${dorm.bedCount}">4</td>
+                        <td th:text="${dorm.currentOccupancy}">2</td>
+                        <td>
+                            <a th:href="@{/dorms/{id}/students(id=${dorm.id})}" class="btn btn-sm btn-outline-info me-1">
+                                <i class="bi bi-people"></i> 查看学生
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

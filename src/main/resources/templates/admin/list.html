@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="content">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 th:text="${title != null ? title : '管理员列表'}">管理员列表</h2>
+        <a href="/admin/new" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> 添加管理员
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>用户名</th>
+                        <th>姓名</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="admin : ${admins}">
+                        <td th:text="${admin.id}">1</td>
+                        <td th:text="${admin.username}">admin</td>
+                        <td th:text="${admin.name}">管理员</td>
+                        <td>
+                            <a th:href="@{/admin/edit/{id}(id=${admin.id})}" class="btn btn-sm btn-outline-primary me-1">
+                                <i class="bi bi-pencil"></i> 编辑
+                            </a>
+                            <a th:href="@{/admin/delete/{id}(id=${admin.id})}" class="btn btn-sm btn-outline-danger" onclick="return confirm('确定要删除此管理员吗？')">
+                                <i class="bi bi-trash"></i> 删除
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

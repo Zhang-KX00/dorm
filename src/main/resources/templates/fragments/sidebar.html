@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+<div th:fragment="sidebar" class="sidebar col-md-3 col-lg-2 d-md-block">
+    <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" data-page="dashboard" href="/dashboard">
+                    <i class="bi bi-speedometer2 me-2"></i>仪表盘
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="admin" href="/admin">
+                    <i class="bi bi-people-fill me-2"></i>管理员管理
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="dorm" href="/dorms">
+                    <i class="bi bi-building me-2"></i>宿舍管理
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-page="student" href="/students">
+                    <i class="bi bi-person-vcard me-2"></i>学生管理
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!-- create.html -->
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
+<head>
+    <title>添加宿舍</title>
+</head>
+<body>
+<div th:fragment="content">
+    <h2><i class="bi bi-building me-2"></i> 添加宿舍</h2>
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-body">
+            <form th:action="@{/dorms/save}" th:object="${dorm}" method="post">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label">楼栋名称</label>
+                        <input type="text" class="form-control" th:field="*{buildingName}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">房间号</label>
+                        <input type="text" class="form-control" th:field="*{roomNumber}" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">总床位数</label>
+                        <input type="number" class="form-control" th:field="*{totalBeds}" min="1" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">可用床位数</label>
+                        <input type="number" class="form-control" th:field="*{availableBeds}" min="0" required>
+                    </div>
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="bi bi-save"></i> 保存
+                        </button>
+                        <a th:href="@{/dorms}" class="btn btn-outline-secondary">
+                            <i class="bi bi-arrow-left"></i> 返回
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
